@@ -14,7 +14,7 @@ module.exports = function(req, res, next) {
     ) {
       console.log("key to genera token "+APP_SECRET)
       let token = jwt.sign({ data: USERNAME, expiresIn: "1h" }, APP_SECRET);
-      res.json({ success: true, token: token });
+      res.json({ success: true,   token: token });
     } else {
       res.json({ success: false }); 
     }

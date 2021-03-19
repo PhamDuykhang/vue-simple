@@ -1,7 +1,7 @@
 import axios from "axios";
 import Vue from "vue";
 
-const ORDER_URL = "http://localhost:3500/orders";
+const ORDER_URL = "/api/orders";
 
 export default {
   state: {
