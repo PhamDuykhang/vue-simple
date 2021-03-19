@@ -153,6 +153,14 @@ export default new Vuex.Store({
       context.commit("clearPage");
       context.dispatch("getPage",1);
     },
+
+    async addProduct(context, product) {
+      let pId = await context.getters.authenticatedAxios.post(
+        productURL,product
+      ); 
+      Vue.$log.info("the pId value",pId)
+      context.commit("_adProduct",product);
+    },
     setPageSize(ctx, size) {
       ctx.commit("clearPage");
       ctx.commit("_setPageSize", size);
