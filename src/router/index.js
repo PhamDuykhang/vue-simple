@@ -34,7 +34,7 @@ export default new VueRouter({
       },
       children:[
       
-        {path:"products/:op(create|edit)/:id",component:ProductEditor},
+        {path:"products/:op(create|edit)/:id?",component:ProductEditor},
         {path:"products",component:ProductAdmin},
         {path:"orders",component:OrderAdmin},
         {path:"",redirect:"/admin/products"}
