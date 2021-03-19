@@ -62,6 +62,13 @@
       "category": "Chess",
       "description": "Gold-plated, diamond-studded King",
       "price": 1200
+    },
+    {
+      "name": "test 1",
+      "description": "Test 1",
+      "category": "Chess",
+      "price": "43434",
+      "id": 10
     }
   ],
   "categories": [
