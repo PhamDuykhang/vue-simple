@@ -5,6 +5,7 @@ import Vuex from "vuex";
 import auth from "./auth";
 import cartModule from "./cart";
 import orderModule from "./order";
+import { generateUID } from "./utils";
 
 Vue.use(Vuex);
 const baseURL = "/api";
@@ -38,10 +39,10 @@ export default new Vuex.Store({
     pageCount: (state) => {
       return state.serverPageCount;
     },
-    productID(state){
-      return function (id){
-        return state.pages[state.currentPage].find(p => p.id == id);
-      }
+    productID(state) {
+      return function(id) {
+        return state.pages[state.currentPage].find((p) => p.id == id);
+      };
     },
 
     // productsFilteredByCategory: (state) =>
@@ -80,12 +81,13 @@ export default new Vuex.Store({
         );
       }
     },
-    _adProduct(state,product){
-       state.pages[state.currentPage].unshift(product)
+    _adProduct(state, product) {
+      Vue.$log.debug("product to in mutations",product)
+      state.pages[state.currentPage].unshift(product);
     },
     _updateProduct(state, product) {
       let page = state.pages[state.currentPage];
-      let index = page.findIndex(p => p.id == product.id);
+      let index = page.findIndex((p) => p.id == product.id);
       Vue.set(page, index, product);
     },
 
@@ -148,18 +150,20 @@ export default new Vuex.Store({
     },
     async removeProduct(context, product) {
       await context.getters.authenticatedAxios.delete(
-        `${productURL}/${product.id}`,
+        `${productURL}/${product.id}`
       );
       context.commit("clearPage");
-      context.dispatch("getPage",1);
+      context.dispatch("getPage", 1);
     },
 
     async addProduct(context, product) {
-      let pId = await context.getters.authenticatedAxios.post(
-        productURL,product
-      ); 
-      Vue.$log.info("the pId value",pId)
-      context.commit("_adProduct",product);
+      if (product.id ==null) {
+        product.id = generateUID();
+        Vue.$log.info("product need to add random id",product)
+      }
+      await context.getters.authenticatedAxios.post(productURL, product);
+      Vue.$log.debug("product to add",product)
+      context.commit("_adProduct", product);
     },
     setPageSize(ctx, size) {
       ctx.commit("clearPage");

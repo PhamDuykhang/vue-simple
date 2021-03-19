@@ -79,13 +79,13 @@ export default {
   computed: {
     ...mapState(["currentPage"]),
     ...mapGetters(["pageCount"]),
-    pageNumbers: function() {
+    pageNumbers() {
       if (this.pageCount < 4) {
-        return [...Array(this.pageCount + 1).keys()].splice(1);
-      } else if (this.currentPage <= 4) { 
+        return [...Array(this.pageCount + 1).keys()].slice(1);
+      } else if (this.currentPage <= 4) {
         return [1, 2, 3, 4, 5];
       } else if (this.currentPage > this.pageCount - 4) {
-        return [...Array(5).keys].reverse().map((v) => this.pageCount - v);
+        return [...Array(5).keys()].reverse().map((v) => this.pageCount - v);
       } else {
         return [this.currentPage - 1, this.currentPage, this.currentPage + 1];
       }

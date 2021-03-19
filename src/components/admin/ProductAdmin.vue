@@ -35,6 +35,7 @@ export default {
   methods:{
       ...mapActions(['removeProduct']),
       handleEdit(product){
+          
           this.$router.push(`/admin/products/edit/${product.id}`)
       }
   }
