@@ -2,19 +2,27 @@ const jwt = require("jsonwebtoken");
 const APP_SECRET = "myappsecret";
 const USERNAME = "admin";
 const PASSWORD = "secret";
+const pino = require('pino');
+
+const expressPino = require('express-pino-logger');
+
+const logger = pino({ level: process.env.LOG_LEVEL || 'info' });
+const expressLogger = expressPino({ logger });
+
 module.exports = function(req, res, next) {
+  logger.info("incoming request ",req.url, 'payload ',req.data)
   if (
     (req.url == "/api/login" || req.url == "/login") &&
     req.method == "POST"
   ) {
     if (
-      req.body != null &&
+      req.body != null  &&
       req.body.name == USERNAME &&
       req.body.password == PASSWORD
     ) {
-      console.log("key to genera token "+APP_SECRET)
+  
       let token = jwt.sign({ data: USERNAME, expiresIn: "1h" }, APP_SECRET);
-      res.json({ success: true, token: token });
+      res.json({ success: true,   token: token });
     } else {
       res.json({ success: false }); 
     }
@@ -30,23 +38,23 @@ module.exports = function(req, res, next) {
       req.method != "POST")
   ) {
     let token = req.headers["authorization"];
-    console.log("key to check "+APP_SECRET)
+   
     if (token != null && token.startsWith("Bearer<")) {
       token = token.substring(7, token.length);
-      console.log("token "+ token)
+     
       try {
         jwt.verify(token, APP_SECRET);
         next();
         return;
       } catch (err) {
-        console.log("can't verify token" + err);
+        
       }
     }
     res.statusCode = 401;
     res.end();
     return;
   }
-  console.log(req.body)
+  
   next();
 };
 

@@ -47,8 +47,8 @@ import { mapActions, mapState } from "vuex";
 export default {
   data: function() {
     return {
-      userName: "",
-      password: "",
+      userName: null,
+      password: null,
       showFailureMessage: false,
     };
   },
