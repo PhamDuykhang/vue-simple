@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const LoginURL = "/api/login";
+const LoginURL = process.env.VUE_APP_API_LOGIN_URL;
 
 export default {
   state: {

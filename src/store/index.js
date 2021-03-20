@@ -8,7 +8,7 @@ import orderModule from "./order";
 import { generateUID } from "./utils";
 
 Vue.use(Vuex);
-const baseURL = "/api";
+const baseURL = process.env.VUE_APP_API_MAIN_URL
 const productURL = `${baseURL}/products`;
 const categoriesURL = `${baseURL}/categories`;
 
@@ -114,6 +114,7 @@ export default new Vuex.Store({
       context.commit("setCategories", (await axios.get(categoriesURL)).data);
     },
     async getPage(context, getPageCount = 1) {
+
       let url = `${productURL}?_page=${
         context.state.currentPage
       }&_limit=${context.state.pageSize * getPageCount}`;
