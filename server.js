@@ -3,8 +3,8 @@ const history = require('connect-history-api-fallback')
 const jsonServer = require("json-server")
 const bodyParser = require('body-parser')
 
-const auth = require('./src/sportstore/middleware')
-const router = jsonServer.router('./src/sportstore/data.json')
+const auth = require('./middleware.js')
+const router = jsonServer.router('./data.json')
 
 const app = express()
 app.use(bodyParser.json())

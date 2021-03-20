@@ -69,6 +69,13 @@
       "category": "Chess",
       "price": "43434",
       "id": 10
+    },
+    {
+      "name": "Test",
+      "description": "ddd",
+      "category": "Watersports",
+      "price": "4343",
+      "id": "ie3u99"
     }
   ],
   "categories": [
@@ -95,7 +102,8 @@
           "quantity": 1
         }
       ],
-      "id": 1
+      "id": 1,
+      "shipped": true
     }
   ]
 }
